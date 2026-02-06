@@ -442,7 +442,7 @@ sudo certbot --nginx -d tunnel.yourdomain.com
 
 **Bitcoin (BTC):**
 ```
-151feG2x2pUqG97p9kSKL7E3LgpukNWozT
+bc1q2tf2d7ts89amthax70mf64p9ez7c9xz56snku0
 ```
 
 すべての寄付は、無料で利用可能な開発ツールの維持と改善に役立ちます。
