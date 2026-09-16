@@ -1,22 +1,28 @@
+<div align="center">
+
 # TunnelHub
 
-**セルフホスト型SSHリバーストンネルサーバー**
+**セルフホスト型 SSH リバーストンネルサーバー**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-ff6b6b.svg?style=for-the-badge)](LICENSE)
-[![Debian](https://img.shields.io/badge/Debian-11%20%7C%2012-d70a53?style=for-the-badge&logo=debian&logoColor=white)](https://www.debian.org/)
-[![SSH](https://img.shields.io/badge/SSH-Tunnel-2d3748?style=for-the-badge)](https://www.openssh.com/)
+![Debian](https://img.shields.io/badge/Debian-11_%7C_12-A81D33?style=for-the-badge&logo=debian&logoColor=white)
+![SSH](https://img.shields.io/badge/SSH-Tunnel-2D3748?style=for-the-badge&logo=openssh&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-3DA639?style=for-the-badge)
 
-**ローカル開発環境を一瞬でインターネットに公開**
+</div>
 
 ---
 
-## 概要
+## 📖 概要
 
-TunnelHubは、Debian VPS上に構築する軽量なSSHリバーストンネルサーバーです。ローカルPCで動作している開発サーバーを、SSH一本で世界中からアクセス可能にします。
+TunnelHub は、Debian VPS 上に構築する軽量な SSH リバーストンネルサーバーです。ローカル PC で動作している開発サーバーを、SSH 一本で世界中からアクセス可能にします。
+
+---
+
+## 🏗️ アーキテクチャ
 
 ```
 ┌─────────────────────────────┐
-│  ローカルPC                  │
+│  ローカル PC                 │
 │  (Mac/Linux/Windows)        │
 │  localhost:8080             │
 └──────────────┬──────────────┘
@@ -29,35 +35,41 @@ TunnelHubは、Debian VPS上に構築する軽量なSSHリバーストンネル�
 └──────────────┬──────────────┘
                │
                ▼
-          Webブラウザ
+          Web ブラウザ
 ```
 
-## 機能
+---
 
-* 超シンプル - OpenSSHだけで動作、複雑な設定不要
+## ✨ 主な機能
+
+* 超シンプル - OpenSSH だけで動作、複雑な設定不要
 * 5分でセットアップ - すぐに本番環境が完成
 * 自動ポート割当 - ポート管理の手間なし
-* ドメイン不要 - IP:PORTで即座にアクセス
-* 超軽量 - DockerもDBも不要
-* セキュア - OpenSSHの実績ある暗号化
+* ドメイン不要 - IP:PORT で即座にアクセス
+* 超軽量 - Docker も DB も不要
+* セキュア - OpenSSH の実績ある暗号化
 * クロスプラットフォーム - Mac、Linux、Windows (WSL) 対応
 
-## VPS環境
+---
+
+## 📋 システム要件
 
 * OS: Debian 11 / 12
-* 権限: root権限またはsudo権限必須
-* ネットワーク: パブリックIPアドレス
+* 権限: root 権限または sudo 権限必須
+* ネットワーク: パブリック IP アドレス
 
-## セットアップ手順
+---
 
-### 1. パッケージのインストール（VPS側）
+## 🚀 セットアップ
+
+### 1. パッケージのインストール（VPS 側）
 
 ```bash
 sudo apt update
 sudo apt install -y openssh-server ufw curl net-tools
 ```
 
-### 2. tunnelユーザーの作成（VPS側）
+### 2. tunnel ユーザーの作成（VPS 側）
 
 ```bash
 sudo adduser tunnel
@@ -65,7 +77,7 @@ sudo adduser tunnel
 
 パスワードは任意で設定してください。
 
-### 3. SSHサーバー設定（VPS側）
+### 3. SSH サーバー設定（VPS 側）
 
 設定ファイルを編集：
 
@@ -98,7 +110,7 @@ Match User tunnel
 sudo systemctl restart ssh
 ```
 
-### 4. ファイアウォール設定（VPS側）
+### 4. ファイアウォール設定（VPS 側）
 
 ```bash
 sudo ufw allow 22/tcp
@@ -113,7 +125,7 @@ sudo ufw reload
 sudo ufw status
 ```
 
-### 5. ローカルPCの準備（Mac/Linux）
+### 5. ローカル PC の準備（Mac/Linux）
 
 フォルダ作成：
 
@@ -122,7 +134,7 @@ mkdir ~/tunnel-test
 cd ~/tunnel-test
 ```
 
-テスト用HTMLを作成：
+テスト用 HTML を作成：
 
 ```bash
 nano index.html
@@ -134,7 +146,7 @@ nano index.html
 <h1>SSH Tunnel Works!</h1>
 ```
 
-### 6. ローカルWebサーバー起動（ローカルPC）
+### 6. ローカル Web サーバー起動（ローカル PC）
 
 ```bash
 cd ~/tunnel-test
@@ -149,7 +161,7 @@ Serving HTTP on :: port 8080 ...
 
 このターミナルは閉じないでください。
 
-### 7. SSHリバーストンネル接続（ローカルPC）
+### 7. SSH リバーストンネル接続（ローカル PC）
 
 別のターミナルを開き：
 
@@ -163,11 +175,11 @@ ssh -R 0.0.0.0:0:localhost:8080 tunnel@VPSのIP
 Allocated port 83493 for remote forward to localhost:8080
 ```
 
-このポート番号が公開URLのポートです。
+このポート番号が公開 URL のポートです。
 
 ### 8. ブラウザからアクセス
 
-以下のURLを開きます：
+以下の URL を開きます：
 
 ```
 http://VPSのIP:割り当てられたポート
@@ -175,7 +187,9 @@ http://VPSのIP:割り当てられたポート
 
 完成です。あなたのローカル環境がインターネットに公開されました。
 
-## 使い方
+---
+
+## 💻 使用方法
 
 ### 基本コマンド
 
@@ -217,9 +231,11 @@ ssh -fN -R 0.0.0.0:0:localhost:8080 tunnel@VPSのIP
 ssh -R 0.0.0.0:8080:localhost:3000 tunnel@VPSのIP
 ```
 
-## 動作確認用コマンド
+---
 
-### VPS側
+## ✅ 動作確認
+
+### VPS 側
 
 ```bash
 ss -ltnp | grep ポート番号
@@ -231,43 +247,45 @@ ss -ltnp | grep ポート番号
 LISTEN 0 128 0.0.0.0:ポート番号
 ```
 
-### ローカルPC側
+### ローカル PC 側
 
 ```bash
 lsof -i :8080
 ```
 
-## トラブルシューティング
+---
+
+## 🔍 トラブルシューティング
 
 ### よくあるトラブル
 
 | 問題 | 対処 |
 |------|------|
-| ポートに接続できない | ufwとVPS管理画面のファイアウォールを確認 |
-| 127.0.0.1:PORTにバインドされる | /etc/ssh/sshd_configのGatewayPorts clientspecifiedを確認 |
+| ポートに接続できない | ufw と VPS 管理画面のファイアウォールを確認 |
+| 127.0.0.1:PORT にバインドされる | /etc/ssh/sshd_config の GatewayPorts clientspecified を確認 |
 
 ### 詳細な診断
 
-VPS側で確認：
+VPS 側で確認：
 
 ```bash
-# SSHサービスの状態
+# SSH サービスの状態
 sudo systemctl status ssh
 
 # アクティブな接続
 sudo netstat -tulpn | grep sshd
 
-# SSHログを確認
+# SSH ログを確認
 sudo tail -f /var/log/auth.log
 
 # ファイアウォール状態
 sudo ufw status verbose
 ```
 
-ローカルPC側で確認：
+ローカル PC 側で確認：
 
 ```bash
-# 詳細なSSH接続ログ
+# 詳細な SSH 接続ログ
 ssh -v -R 0.0.0.0:0:localhost:8080 tunnel@VPSのIP
 
 # ローカルサービスが起動しているか
@@ -275,16 +293,16 @@ lsof -i :8080
 curl localhost:8080
 ```
 
-VPSプロバイダーのファイアウォール確認：
+VPS プロバイダーのファイアウォール確認：
 
-* AWS: Security Groupsをチェック
-* Google Cloud: Firewall Rulesをチェック
-* DigitalOcean: Cloud Firewallをチェック
-* Vultr: Firewall settingsをチェック
+* AWS: Security Groups をチェック
+* Google Cloud: Firewall Rules をチェック
+* DigitalOcean: Cloud Firewall をチェック
+* Vultr: Firewall settings をチェック
 
-### SSH接続が切れる場合
+### SSH 接続が切れる場合
 
-~/.ssh/configに設定を追加：
+~/.ssh/config に設定を追加：
 
 ```ssh-config
 Host tunnelhub
@@ -300,7 +318,59 @@ Host tunnelhub
 ssh -R 0.0.0.0:0:localhost:8080 tunnelhub
 ```
 
-## セキュリティ注意
+---
+
+## 🧭 将来拡張
+
+この構成は以下に拡張可能です：
+
+### 拡張アイデア
+
+* HTTPS 対応 - Let's Encrypt で SSL/TLS 証明書を取得
+* 自動サブドメイン発行 - abc123.yourdomain.com 形式の自動割当
+* Docker 化 - コンテナベースのデプロイ
+* Web 管理画面 - トンネルを GUI で管理
+* カスタムドメイン - 独自ドメインの持ち込み
+* 認証 API - トークンベースのトンネル作成
+* 帯域制限 - ユーザーごとのトラフィック制限
+* 接続ログ - トンネル使用状況の追跡
+
+### HTTPS 化の例（Nginx + Let's Encrypt）
+
+```bash
+# Nginx と Certbot をインストール
+sudo apt install -y nginx certbot python3-certbot-nginx
+
+# Nginx を reverse proxy として設定
+sudo nano /etc/nginx/sites-available/tunnelhub
+```
+
+```nginx
+server {
+    listen 80;
+    server_name tunnel.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:トンネルポート;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+```bash
+# サイトを有効化して SSL 証明書を取得
+sudo ln -s /etc/nginx/sites-available/tunnelhub /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+sudo certbot --nginx -d tunnel.yourdomain.com
+```
+
+---
+
+## 🔒 セキュリティ注意事項
 
 デフォルト設定はテスト用です。本番運用時は必ず以下を実施してください。
 
@@ -308,17 +378,17 @@ ssh -R 0.0.0.0:0:localhost:8080 tunnelhub
 
 #### 1. パスワード認証から鍵認証に変更
 
-ローカルPCで鍵を生成：
+ローカル PC で鍵を生成：
 
 ```bash
-# SSH鍵を生成（まだ持っていない場合）
+# SSH 鍵を生成（まだ持っていない場合）
 ssh-keygen -t ed25519 -C "your_email@example.com"
 
-# 公開鍵をVPSにコピー
+# 公開鍵を VPS にコピー
 ssh-copy-id tunnel@VPSのIP
 ```
 
-VPS側でパスワード認証を無効化：
+VPS 側でパスワード認証を無効化：
 
 ```bash
 sudo nano /etc/ssh/sshd_config
@@ -332,7 +402,7 @@ PasswordAuthentication no
 sudo systemctl restart ssh
 ```
 
-#### 2. tunnelユーザーのログイン制限
+#### 2. tunnel ユーザーのログイン制限
 
 ```bash
 # シェルアクセスを無効化
@@ -342,7 +412,7 @@ sudo usermod -s /usr/sbin/nologin tunnel
 sudo usermod -s /bin/rbash tunnel
 ```
 
-#### 3. ufwによるポート制限
+#### 3. ufw によるポート制限
 
 ```bash
 # より狭い範囲に制限
@@ -351,7 +421,7 @@ sudo ufw allow 30000:40000/tcp
 sudo ufw reload
 ```
 
-#### 4. fail2banでブルートフォース対策
+#### 4. fail2ban でブルートフォース対策
 
 ```bash
 sudo apt install -y fail2ban
@@ -365,100 +435,47 @@ sudo systemctl start fail2ban
 # リバーストンネルの確認
 ss -ltnp | grep LISTEN
 
-# tunnelユーザーの接続を確認
+# tunnel ユーザーの接続を確認
 sudo ps aux | grep tunnel
 ```
 
 ### セキュリティチェックリスト
 
-* SSH鍵認証を使用する
-* tunnelユーザーのシェルアクセスを無効化
+* SSH 鍵認証を使用する
+* tunnel ユーザーのシェルアクセスを無効化
 * ファイアウォールでポート範囲を制限
-* fail2banを導入
-* SSHサーバーを常に最新に保つ
+* fail2ban を導入
+* SSH サーバーを常に最新に保つ
 * 接続ログを定期的に確認
 * 弱いパスワードを使わない
-* tunnelユーザーの認証情報を共有しない
+* tunnel ユーザーの認証情報を共有しない
 * 機密性の高いサービスを公開しない
-
-## 将来拡張
-
-この構成は以下に拡張可能です：
-
-### 拡張アイデア
-
-* HTTPS対応 - Let's EncryptでSSL/TLS証明書を取得
-* 自動サブドメイン発行 - abc123.yourdomain.com形式の自動割当
-* Docker化 - コンテナベースのデプロイ
-* Web管理画面 - トンネルをGUIで管理
-* カスタムドメイン - 独自ドメインの持ち込み
-* 認証API - トークンベースのトンネル作成
-* 帯域制限 - ユーザーごとのトラフィック制限
-* 接続ログ - トンネル使用状況の追跡
-
-### HTTPS化の例（Nginx + Let's Encrypt）
-
-```bash
-# NginxとCertbotをインストール
-sudo apt install -y nginx certbot python3-certbot-nginx
-
-# Nginxをreverse proxyとして設定
-sudo nano /etc/nginx/sites-available/tunnelhub
-```
-
-```nginx
-server {
-    listen 80;
-    server_name tunnel.yourdomain.com;
-    
-    location / {
-        proxy_pass http://localhost:トンネルポート;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
-
-```bash
-# サイトを有効化してSSL証明書を取得
-sudo ln -s /etc/nginx/sites-available/tunnelhub /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl reload nginx
-sudo certbot --nginx -d tunnel.yourdomain.com
-```
-
-## 参考資料
-
-* OpenSSH公式ドキュメント: https://www.openssh.com/manual.html
-* SSHリバーストンネリングガイド: https://www.ssh.com/academy/ssh/tunneling/example
-* UFWファイアウォールチュートリアル: https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-debian
-* Let's Encrypt公式サイト: https://letsencrypt.org/
-
-## 開発支援
-
-このツールが役立った場合、継続的な開発を支援することをご検討ください:
-
-**Bitcoin (BTC):**
-```
-bc1q2tf2d7ts89amthax70mf64p9ez7c9xz56snku0
-```
-
-すべての寄付は、無料で利用可能な開発ツールの維持と改善に役立ちます。
 
 ---
 
-## 教育理念
+## 📚 参考資料
+
+* OpenSSH 公式ドキュメント: https://www.openssh.com/manual.html
+* SSH リバーストンネリングガイド: https://www.ssh.com/academy/ssh/tunneling/example
+* UFW ファイアウォールチュートリアル: https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-debian
+* Let's Encrypt 公式サイト: https://letsencrypt.org/
+
+---
+
+## 🌐 教育理念
 
 本プロジェクトは、すべてのユーザーが無料で利用できる高品質なツールの提供に取り組んでいます。すべての機能は無料で提供され、今後も無料で利用可能です。
 
 ---
 
-## 免責事項
+## ⚠️ 免責事項
 
 本ソフトウェアは教育目的で提供されています。ユーザーは、使用が適用される法律および規制に準拠していることを確保する責任を負います。
 
 ---
 
+<div align="center">
+
 *責任を持って使用してください*
+
+</div>
